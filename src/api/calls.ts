@@ -1,4 +1,4 @@
-import { IPost, IUser } from '@interfaces/data'
+import { IPost, ITask, IUser } from '@interfaces/data'
 import ApiClient from './client'
 
 interface ICallSources {
@@ -7,6 +7,7 @@ interface ICallSources {
   getPosts?: { cancel: Function }
   setPost?: { cancel: Function }
   getTasks?: { cancel: Function }
+  setTask?: { cancel: Function }
 }
 
 interface IResponse {
@@ -97,6 +98,21 @@ export const getTasks = async () => {
 
   const response: IResponse = await ApiClient.get(
     ApiClient.paths.getTasks,
+    callSource.token,
+  )
+  return response
+}
+
+export const setTask = async (task: ITask) => {
+  if (callSources.setTask) {
+    callSources.setTask.cancel()
+  }
+  const callSource = ApiClient.source()
+  callSources.setTask = callSource
+
+  const response: IResponse = await ApiClient.put(
+    `${ApiClient.paths.getPosts}/${task.id}`,
+    task,
     callSource.token,
   )
   return response

@@ -94,4 +94,12 @@ export const manageState = {
   setTasks: (state: IState, action: IAction<Array<ITask>>) => {
     state.tasks = action.payload!
   },
+  setTask: (state: IState, action: IAction<ITask>) => {
+    const index = state.tasks?.findIndex(
+      (task: ITask) => task.id === action.payload?.id,
+    )
+    if ((index || index === 0) && state.tasks) {
+      state.tasks[index] = action.payload!
+    }
+  },
 }

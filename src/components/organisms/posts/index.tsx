@@ -23,7 +23,7 @@ const Posts = () => {
           Dispatches.data.setUsers(responseUsers.data || responseUsers)
         })
       })
-    Array.isArray(posts) && Dispatches.ui.setLoading(false)
+    Array.isArray(posts) && Dispatches.ui.setLoading(null)
   }, [posts])
 
   return (

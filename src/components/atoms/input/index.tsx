@@ -4,12 +4,11 @@ import { IComponent } from '@interfaces/component'
 import './input.sass'
 
 interface IInput {
-  value: string | number
+  value?: string | number
   required?: boolean
   disabled?: boolean
   validate?: string
   type?: string
-  name?: string
   checked?: boolean
   onChange?: ChangeEventHandler<HTMLInputElement>
 }
@@ -20,7 +19,6 @@ const Input = ({
   disabled,
   validate,
   type,
-  name,
   checked,
   onChange,
   children,
@@ -30,7 +28,6 @@ const Input = ({
       className={'input'}
       value={value}
       type={type}
-      name={name}
       checked={checked}
       placeholder={children?.toString()}
       required={required}

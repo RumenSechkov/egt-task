@@ -61,8 +61,14 @@ const Post = ({ post: postOriginal }: IComponent & { post: IPost }) => {
       </Button>
       <Button
         onClick={() => {
-          deletePost(post).then(() => {
-            Dispatches.data.setPostDelete(post)
+          Dispatches.ui.setModal({
+            active: true,
+            content: <span>do you want to delete post {post.id}?</span>,
+            action: () =>
+              deletePost(post).then(() => {
+                Dispatches.data.setPostDelete(post)
+                Dispatches.ui.setModal({ active: false })
+              }),
           })
         }}
       >

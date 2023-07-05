@@ -1,7 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { IComponent } from '@interfaces/component'
-import type { RootState } from '@state/store'
 import Loading from '@organisms/loading'
 import Navigation from '@organisms/navigation'
 
@@ -10,11 +9,11 @@ interface ILayout {
 }
 
 const Layout = ({ hasNavigation, children }: IComponent & ILayout) => {
-  const loading = useSelector((state: RootState) => state.ui.loading)
+  const loading = useSelector((state) => state.ui.loading)
 
   return (
     <main>
-      <Loading loading={loading} />
+      <Loading loading={loading}>loading</Loading>
       {hasNavigation && <Navigation />}
       {children}
     </main>

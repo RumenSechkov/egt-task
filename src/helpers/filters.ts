@@ -1,17 +1,25 @@
-export const filterItems = (items: Array<any> = [], filters: string) =>
-  items.filter(
-    (item: any) =>
-      !Boolean(
-        Object.keys(filters).filter((key: any) => {
+export const filterItems = (
+  items: Array<any> = [],
+  filters: { [key: string]: string | boolean },
+) => {
+  const filterKeys = Object.keys(filters)
+  return (
+    (!filterKeys.length && items) ||
+    items.filter((item: any) =>
+      Boolean(
+        filterKeys.filter((key: string) => {
+          if (item[key] === undefined) return true
           const filter = filters[key]
           switch (typeof filter) {
             case 'boolean':
               return item[key] === filter
             case 'string':
-              return filter && item[key]?.match(filter)
+              return item[key].toLowerCase().match(filter.toLowerCase())
             default:
-              return false
+              return true
           }
-        }).length,
+        }).length === filterKeys.length,
       ),
+    )
   )
+}

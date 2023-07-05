@@ -19,7 +19,7 @@ const Users = () => {
       getUsers(userId).then((response) => {
         Dispatches.data.setUsers(response.data || response)
       })
-    Array.isArray(users) && Dispatches.ui.setLoading(false)
+    Array.isArray(users) && Dispatches.ui.setLoading(null)
   }, [users])
 
   return (
